@@ -1,6 +1,6 @@
 import socket
 HOST = '0.0.0.0'
-PORT = 2020
+PORT = 2222
 isServerAlive = True
 with socket.socket() as s:
     s.bind((HOST, PORT))
