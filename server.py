@@ -1,18 +1,16 @@
 import socket
 import threading
-
+import time
 
 def connection_handler(conn, addr):
-    global isServerAlive
     with conn:
-        print('Connected by', addr)
+        print('Connection to', addr, "is open")
         while True:
             data = conn.recv(1024)
-            if not data:
-                if  'close' in data.decode():
-                    isServerAlive = False
+            if not data or 'close' in data.decode():
                 break
             conn.sendall(data)
+        print("Connection to", addr, "is closed")
 
 
 HOST = '0.0.0.0'
@@ -21,7 +19,7 @@ isServerAlive = True
 with socket.socket() as s:
     s.bind((HOST, PORT))
     s.listen(10)
-    while isServerAlive:
+    while True:
         connection, address = s.accept()
         thread = threading.Thread(target=connection_handler, args=(connection, address))
         thread.start()
