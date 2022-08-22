@@ -1,5 +1,5 @@
 import socket
-HOST = ''
+HOST = '0.0.0.0'
 PORT = 2020
 isServerAlive = True
 with socket.socket() as s:
